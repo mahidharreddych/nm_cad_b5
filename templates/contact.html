@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <title>Contact | CM</title>
+</head>
+<body>
+    <div class="nav-bar">
+        <ul class="nav-items">
+            <li class="nav-item"><a href="#">Home</a></li>
+            <li class="nav-item"><a href="/course">Courses</a></li>
+            <li class="nav-item"><a href="/contact">Contact</a></li>
+            <li class="nav-item"><a href="/login"><button>Login</button></a></li>
+        </ul>
+    </div>
+
+    <form action="/contact" method="post">
+        <label for="fullname">Enter your Full Name</label>
+        <input type="text" name="fullname" id="fullname" placeholder="Enter your Full Name" required> <br>
+        <label for="fullname">Enter your Email Id</label>
+        <input type="email" name="email" id="email" placeholder="Enter your Email Id" required><br>
+        <label for="fullname">Enter your Phone Number</label>
+        <input type="tel" name="pnumber" id="pnumber" placeholder="Enter your Phone Number"><br>
+        <label for="fullname">Select your Intrested Course</label>
+        <select name="course" id="course"><br>
+            <option value="c">C Programming</option>
+            <option value="cpp">C++ Programming</option>
+            <option value="java">JAVA Programming</option>
+            <option value="python">Python Programming</option>
+        </select> <br>
+        <button type="submit">Enquiry</button><br>
+
+    </form>
+
+    <form action="/file_type" method="post"  enctype = "multipart/form-data">
+        <label for="somefile">Click Here to Upload your File</label>
+        <input type="file" name="somefile" id="somefile" >
+        <button type="submit">
+            Upload
+        </button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
+</body>
+</html>

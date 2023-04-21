@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,600;1,800&family=Source+Serif+Pro:wght@300;600;700;900&display=swap');
+
+
+body{
+    background: linear-gradient(to right, #EFF54D  ,#00AC61 );
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+    text-align: center;
+    color: #E07C24;
+    font-size: 70px;
+    font-weight: 800;
+}
+
+.button-enroll{
+    padding: 20px 20px;
+  
+}
+
+
+.nav-items{
+    display: flex;
+    flex-direction: row;
+    height: 20vh;
+    justify-content:space-around;
+    width: 100%;
+    list-style: none;
+}
+
+
+
+
+

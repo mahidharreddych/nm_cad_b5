@@ -3,7 +3,7 @@ import ibm_db
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-conn = ibm_db.connect("database = bludb; hostname = 2f3279a5-73d1-4859-88f0-a6c3e6b4b907.c3n41cmd0nqnrk39u98g.databases.appdomain.cloud; port = 30756; uid = vts47207; password = g4O8mWodzytk1wMD;security=SSL; SSLServercertificate = DigiCertGlobalRootCA.crt ", " ", " ")
+conn = ibm_db.connect("database = bludb; hostname = ; port =; uid = ; password = ;security=SSL; SSLServercertificate = DigiCertGlobalRootCA.crt ", " ", " ")
 
 print("Connection Succesfull")
 @app.route("/")

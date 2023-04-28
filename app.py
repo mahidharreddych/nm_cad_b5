@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 import ibm_db
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -12,6 +12,7 @@ def index():
 
 @app.route("/login", methods = ['GET', 'POST'])
 def login():
+    global u_email
     if request.method == 'POST':
         u_email = request.form["uemail"]
         u_pass = request.form['upass']
@@ -22,10 +23,14 @@ def login():
         ibm_db.bind_param(stmt, 2, u_pass)
         ibm_db.execute(stmt)
         info = ibm_db.fetch_assoc(stmt)
+        print(info)
         if info : 
+            session['id'] = True
+            session['email'] = u_email
+
             return redirect(url_for("course"))
         else:
-            msg_w = "Check Email and Password you have entered"
+            msg_w = "Check the Email and Password you have entered"
             return render_template("login.html", msg_w = msg_w ) 
             
     return render_template("login.html")
@@ -58,23 +63,27 @@ def u_register():
         ibm_db.execute(stmt)
         msg_r = "your are successfully registered : kindly LOGIN"
         return render_template("login.html", msg_r = msg_r)
-
-
     
 
 
 
 @app.route("/contact", methods = ['GET', 'POST'])
 def contact():
-    if request.method == 'post':
+    if request.method == 'POST':
         name = request.form['fullname'] 
         email = request.form['email']
         number = request.form['pnumber']
         c = request.form['course']
 
-        details = [name,email,number,c]
-        print(details)
-        return render_template("course.html")
+        sql = "INSERT into contact_b5 VALUES (?, ? , ? , ?)"
+        stmt = ibm_db.prepare(conn, sql)
+        ibm_db.bind_param(stmt, 1 , name)
+        ibm_db.bind_param(stmt, 2 , email)
+        ibm_db.bind_param(stmt, 3 , number)
+        ibm_db.bind_param(stmt, 4 , c)
+        ibm_db.execute(stmt)
+        msg = "Thankyou for your Interest: Soon we will reachout to you."
+        return render_template("contact.html", msg = msg)
     
     return render_template("contact.html")
 
@@ -96,6 +105,11 @@ def upload_file():
         error = "File is Not uploaded"
         return render_template("contact.html", error=error)
 
+@app.route("/logout")
+def logout():
+    session.pop("id", None)
+    session.pop("email", None)
+    return render_template("index.html")
 
 
 
